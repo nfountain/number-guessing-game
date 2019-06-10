@@ -11,5 +11,23 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css"
     />
   </head>
-  <body></body>
+  <body>
+    <div class="container">
+      <h1>Guess a Number</h1>
+      <div id="game">
+        <p>
+          Guess a number between <span class="min-num">1</span> and
+          <span class="max-num"></span>.
+        </p>
+        <input
+          id="guess-input"
+          type="number"
+          placeholder="Enter your best guess"
+        />
+        <input id="guess-value" type="submit" value="Submit" />
+        <p class="message"></p>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
 </html>
