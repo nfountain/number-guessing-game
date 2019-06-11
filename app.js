@@ -11,7 +11,7 @@ GAME PROCESS:
 // Global variables
 let min = 1,
   max = 10,
-  winningNum = 2,
+  winningNum = getRandomNum(min, max),
   guessesLeft = 3;
 
 // UI elements
@@ -25,6 +25,14 @@ const game = document.getElementById('game'),
 // Assign min and max values
 minNum.textContent = min;
 maxNum.textContent = max;
+
+// Play again event listener
+
+game.addEventListener('mousedown', function(e) {
+  if (e.target.className === 'play-again') {
+    window.location.reload();
+  }
+});
 
 // Listen for guess
 guessBtn.addEventListener('click', function() {
@@ -70,4 +78,10 @@ function gameOver(won, mssg) {
   guessInput.disabled = true;
   // change button value text to Play Again and set the button to reset the game
   guessBtn.value = `play again`;
+  guessBtn.className += 'play-again'; // += appends it to the list of classes, as = would overwrite the classes
+}
+
+// get a randomized winning number
+function getRandomNum() {
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
