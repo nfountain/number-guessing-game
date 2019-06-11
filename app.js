@@ -5,7 +5,7 @@ GAME PROCESS:
 3. Parameter - user gets X # of guesses
 4. Output / Feedback - Correct/incorrect & style appropriately
 5. Output / Feedback - Number of guesses remaining
-6. Option to Play again (input id="guess-btn" has the value change from SUBMIT to PLAY AGAIN)
+6. Option to Play again
 */
 
 // Global variables
@@ -27,7 +27,6 @@ minNum.textContent = min;
 maxNum.textContent = max;
 
 // Play again event listener
-
 game.addEventListener('mousedown', function(e) {
   if (e.target.className === 'play-again') {
     window.location.reload();
@@ -36,10 +35,8 @@ game.addEventListener('mousedown', function(e) {
 
 // Listen for guess
 guessBtn.addEventListener('click', function() {
-  // console.log(guessInput.value);// returns the number entered(black)
-  // turn input from string to number
   let guess = parseInt(guessInput.value);
-  console.log(guess); // output is blue
+  console.log(guess);
 
   // validate input
   if (isNaN(guess) || guess < min || guess > max) {
@@ -49,6 +46,7 @@ guessBtn.addEventListener('click', function() {
   else if (guess === winningNum) {
     gameOver(true, `You\'ve WON\!\!\! ${winningNum} is correct.`);
   } else {
+    // if input does not match random number, subtract a guess and return message
     guessesLeft -= 1;
     if (guessesLeft === 0) {
       gameOver(false, `Game Over\. The correct number was ${winningNum}\.`);
@@ -71,14 +69,14 @@ function setMessage(mssg, color) {
   guessInput.value = '';
 }
 
+// game over
 function gameOver(won, mssg) {
   let color;
   won === true ? (color = 'green') : (color = 'red');
   setMessage(mssg, color);
   guessInput.disabled = true;
-  // change button value text to Play Again and set the button to reset the game
   guessBtn.value = `play again`;
-  guessBtn.className += 'play-again'; // += appends it to the list of classes, as = would overwrite the classes
+  guessBtn.className += 'play-again';
 }
 
 // get a randomized winning number
