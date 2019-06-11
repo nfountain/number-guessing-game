@@ -5,7 +5,7 @@ GAME PROCESS:
 3. Parameter - user gets X # of guesses
 4. Output / Feedback - Correct/incorrect & style appropriately
 5. Output / Feedback - Number of guesses remaining
-6. Option to Play again (input id="guess-value" has the value change from SUBMIT to PLAY AGAIN)
+6. Option to Play again (input id="guess-btn" has the value change from SUBMIT to PLAY AGAIN)
 */
 
 // Global variables
@@ -37,30 +37,20 @@ guessBtn.addEventListener('click', function() {
   if (isNaN(guess) || guess < min || guess > max) {
     setMessage(`Please enter a number between ${min} and ${max}`, `red`);
   }
-
   // check if input matched random number
-  if (guess === winningNum) {
-    guessInput.disabled = true;
-    setMessage(`You\'ve WON\!\!\! ${winningNum} is correct.`, `green`);
+  else if (guess === winningNum) {
+    gameOver(true, `You\'ve WON\!\!\! ${winningNum} is correct.`);
   } else {
     guessesLeft -= 1;
-
     if (guessesLeft === 0) {
-      guessInput.disabled = true;
-      setMessage(
-        `Game Over\, you lost\. The correct number was ${winningNum}\.`,
-        `red`
-      );
-      guessBtn.setAttribute.value = 'Play Again';
+      gameOver(false, `Game Over\. The correct number was ${winningNum}\.`);
     } else if (guessesLeft === 1) {
       setMessage(`${guess} is not correct. ${guessesLeft} guess left\.`, `red`);
-      guessInput.value = '';
     } else {
       setMessage(
         `${guess} is not correct. ${guessesLeft} guesses left\.`,
         `red`
       );
-      guessInput.value = '';
     }
   }
 });
@@ -70,8 +60,14 @@ function setMessage(mssg, color) {
   message.textContent = mssg;
   message.style.color = color;
   guessInput.style.border = `1px solid ${color}`;
+  guessInput.value = '';
 }
 
-function gameOver() {
-  // change button inner text to Play Again and set the button to reset the game
+function gameOver(won, mssg) {
+  let color;
+  won === true ? (color = 'green') : (color = 'red');
+  setMessage(mssg, color);
+  guessInput.disabled = true;
+  // change button value text to Play Again and set the button to reset the game
+  guessBtn.value = `play again`;
 }
