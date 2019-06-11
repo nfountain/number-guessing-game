@@ -1,10 +1,11 @@
 /* 
 GAME PROCESS:
-1. Input - user enters a number between min and max (is there an error if they go outside of min and max?)
-2. Parameter - user gets X # of guesses
-3. Output / Feedback - Correct/incorrect & style appropriately
-4. Output / Feedback - Number of guesses remaining
-5. Option to Play again (input id="guess-value" has the value change from SUBMIT to PLAY AGAIN)
+1. Input - user enters a number
+2. Parameter - the number has to be between min and max 
+3. Parameter - user gets X # of guesses
+4. Output / Feedback - Correct/incorrect & style appropriately
+5. Output / Feedback - Number of guesses remaining
+6. Option to Play again (input id="guess-value" has the value change from SUBMIT to PLAY AGAIN)
 */
 
 // Global variables
@@ -24,3 +25,23 @@ const game = document.getElementById('game'),
 // Assign min and max values
 minNum.textContent = min;
 maxNum.textContent = max;
+
+// Listen for guess
+guessBtn.addEventListener('click', function() {
+  // console.log(guessInput.value);// returns the number entered(black)
+  // turn input from string to number
+  let guess = parseInt(guessInput.value);
+  console.log(guess); // output is blue
+
+  // validate input
+  if (isNaN(guess) || guess < min || guess > max) {
+    setMessage(`Please enter a number between ${min} and ${max}`, `red`);
+  }
+});
+
+// set Message
+function setMessage(mssg, color) {
+  message.textContent = mssg;
+  message.style.color = color;
+  guessInput.style.border = `1px solid ${color}`;
+}
