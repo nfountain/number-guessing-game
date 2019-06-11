@@ -37,6 +37,14 @@ guessBtn.addEventListener('click', function() {
   if (isNaN(guess) || guess < min || guess > max) {
     setMessage(`Please enter a number between ${min} and ${max}`, `red`);
   }
+
+  // check if input matched random number
+  if (guess === winningNum) {
+    guessInput.disabled = true;
+    setMessage(`You\'ve WON\!\!\! ${winningNum} is correct\!`, `green`);
+  } else {
+    guessesLeft;
+  }
 });
 
 // set Message
