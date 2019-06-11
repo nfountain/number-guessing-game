@@ -41,9 +41,27 @@ guessBtn.addEventListener('click', function() {
   // check if input matched random number
   if (guess === winningNum) {
     guessInput.disabled = true;
-    setMessage(`You\'ve WON\!\!\! ${winningNum} is correct\!`, `green`);
+    setMessage(`You\'ve WON\!\!\! ${winningNum} is correct.`, `green`);
   } else {
-    guessesLeft;
+    guessesLeft -= 1;
+
+    if (guessesLeft === 0) {
+      guessInput.disabled = true;
+      setMessage(
+        `Game Over\, you lost\. The correct number was ${winningNum}\.`,
+        `red`
+      );
+      guessBtn.setAttribute.value = 'Play Again';
+    } else if (guessesLeft === 1) {
+      setMessage(`${guess} is not correct. ${guessesLeft} guess left\.`, `red`);
+      guessInput.value = '';
+    } else {
+      setMessage(
+        `${guess} is not correct. ${guessesLeft} guesses left\.`,
+        `red`
+      );
+      guessInput.value = '';
+    }
   }
 });
 
@@ -52,4 +70,8 @@ function setMessage(mssg, color) {
   message.textContent = mssg;
   message.style.color = color;
   guessInput.style.border = `1px solid ${color}`;
+}
+
+function gameOver() {
+  // change button inner text to Play Again and set the button to reset the game
 }
